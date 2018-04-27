@@ -1,0 +1,60 @@
+--------------
+Number of Processors: 1
+	(0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Nominal Efficiency: 1
+--------------
+Number of Processors: 2
+	(0, 105) x (0, 913) [4310717 observations, 96884 grid cells]
+	(106, 456) x (0, 913) [4255395 observations, 320814 grid cells]
+Nominal Efficiency: 0.993583
+--------------
+Number of Processors: 3
+	(0, 456) x (0, 455) [2842195 observations, 208392 grid cells]
+	(0, 456) x (456, 482) [2849339 observations, 12339 grid cells]
+	(0, 456) x (483, 913) [2874578 observations, 196967 grid cells]
+Nominal Efficiency: 0.993318
+--------------
+Number of Processors: 4
+	(0, 98) x (0, 487) [2168403 observations, 48312 grid cells]
+	(99, 108) x (0, 487) [2127297 observations, 4880 grid cells]
+	(109, 456) x (0, 487) [2144916 observations, 169824 grid cells]
+	(0, 456) x (488, 913) [2125496 observations, 194682 grid cells]
+Nominal Efficiency: 0.987606
+--------------
+Number of Processors: 5
+	(0, 456) x (0, 440) [1717148 observations, 201537 grid cells]
+	(0, 106) x (441, 466) [1669170 observations, 2782 grid cells]
+	(0, 106) x (467, 489) [1711399 observations, 2461 grid cells]
+	(107, 456) x (441, 489) [1690143 observations, 17150 grid cells]
+	(0, 456) x (490, 913) [1778252 observations, 193768 grid cells]
+Nominal Efficiency: 0.963431
+--------------
+Number of Processors: 6
+	(0, 456) x (0, 433) [1420924 observations, 198338 grid cells]
+	(0, 456) x (434, 455) [1421271 observations, 10054 grid cells]
+	(0, 456) x (456, 471) [1389454 observations, 7312 grid cells]
+	(0, 456) x (472, 482) [1459885 observations, 5027 grid cells]
+	(0, 113) x (483, 913) [1394261 observations, 49134 grid cells]
+	(114, 456) x (483, 913) [1480317 observations, 147833 grid cells]
+Nominal Efficiency: 0.964446
+--------------
+Number of Processors: 7
+	(0, 456) x (0, 421) [1229146 observations, 192854 grid cells]
+	(0, 456) x (422, 450) [1247298 observations, 13253 grid cells]
+	(0, 456) x (451, 464) [1224110 observations, 6398 grid cells]
+	(0, 456) x (465, 478) [1214640 observations, 6398 grid cells]
+	(0, 104) x (479, 913) [1181841 observations, 45675 grid cells]
+	(105, 456) x (479, 491) [1224823 observations, 4576 grid cells]
+	(105, 456) x (492, 913) [1244254 observations, 148544 grid cells]
+Nominal Efficiency: 0.981105
+--------------
+Number of Processors: 8
+	(0, 90) x (0, 913) [1052490 observations, 83174 grid cells]
+	(91, 456) x (0, 438) [1037385 observations, 160674 grid cells]
+	(91, 456) x (439, 454) [1087978 observations, 5856 grid cells]
+	(91, 456) x (455, 467) [1078381 observations, 4758 grid cells]
+	(91, 100) x (468, 913) [1064175 observations, 4460 grid cells]
+	(101, 110) x (468, 913) [1080561 observations, 4460 grid cells]
+	(111, 116) x (468, 913) [1063228 observations, 2676 grid cells]
+	(117, 456) x (468, 913) [1101914 observations, 151640 grid cells]
+Nominal Efficiency: 0.971731

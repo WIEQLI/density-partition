@@ -1,0 +1,76 @@
+------
+Total Partitions = 1
+Number of Sections = 1
+Aspect Cost = 457
+Count Cost = 0
+	[0x7fae42500280] (0, 456) x (0, 913) [8566112 observations, 417698 grid cells][Increment Count Cost 0]
+------
+Total Partitions = 1
+Number of Sections = 2
+Aspect Cost = 1371
+Count Cost = 55322
+	[0x7fae42403a90] (0, 105) x (0, 913) [4310717 observations, 96884 grid cells][Increment Count Cost 4.29071e+09]
+	[0x7fae42404880] (106, 456) x (0, 913) [4255395 observations, 320814 grid cells][Increment Count Cost 4.29066e+09]
+------
+Total Partitions = 1
+Number of Sections = 3
+Aspect Cost = 457
+Count Cost = 38414
+	[0x7fae42405410] (0, 456) x (0, 455) [2842195 observations, 208392 grid cells][Increment Count Cost 4.28924e+09]
+	[0x7fae42404c10] (0, 456) x (456, 482) [2849339 observations, 12339 grid cells][Increment Count Cost 4.28925e+09]
+	[0x7fae42404c40] (0, 456) x (483, 913) [2874578 observations, 196967 grid cells][Increment Count Cost 4.28928e+09]
+------
+Total Partitions = 1
+Number of Sections = 4
+Aspect Cost = 1038
+Count Cost = 60526
+	[0x7fae42405890] (0, 98) x (0, 487) [2168403 observations, 48312 grid cells][Increment Count Cost 4.28857e+09]
+	[0x7fae42405440] (99, 108) x (0, 487) [2127297 observations, 4880 grid cells][Increment Count Cost 4.28853e+09]
+	[0x7fae42405470] (109, 456) x (0, 487) [2144916 observations, 169824 grid cells][Increment Count Cost 4.28855e+09]
+	[0x7fae42404c70] (0, 456) x (488, 913) [2125496 observations, 194682 grid cells][Increment Count Cost 4.28853e+09]
+------
+Total Partitions = 1
+Number of Sections = 5
+Aspect Cost = 515
+Count Cost = 137910
+	[0x7fae426000b0] (0, 456) x (0, 440) [1717148 observations, 201537 grid cells][Increment Count Cost 4.28812e+09]
+	[0x7fae426001d0] (0, 106) x (441, 466) [1669170 observations, 2782 grid cells][Increment Count Cost 4.28807e+09]
+	[0x7fae42600200] (0, 106) x (467, 489) [1711399 observations, 2461 grid cells][Increment Count Cost 4.28811e+09]
+	[0x7fae42600350] (107, 456) x (441, 489) [1690143 observations, 17150 grid cells][Increment Count Cost 4.28809e+09]
+	[0x7fae42600420] (0, 456) x (490, 913) [1778252 observations, 193768 grid cells][Increment Count Cost 4.28818e+09]
+------
+Total Partitions = 1
+Number of Sections = 6
+Aspect Cost = 1750
+Count Cost = 169662
+	[0x7fae42500400] (0, 456) x (0, 433) [1420924 observations, 198338 grid cells][Increment Count Cost 4.28782e+09]
+	[0x7fae42500690] (0, 456) x (434, 455) [1421271 observations, 10054 grid cells][Increment Count Cost 4.28782e+09]
+	[0x7fae425003d0] (0, 456) x (456, 471) [1389454 observations, 7312 grid cells][Increment Count Cost 4.28779e+09]
+	[0x7fae425006f0] (0, 456) x (472, 482) [1459885 observations, 5027 grid cells][Increment Count Cost 4.28786e+09]
+	[0x7fae42500750] (0, 113) x (483, 913) [1394261 observations, 49134 grid cells][Increment Count Cost 4.2878e+09]
+	[0x7fae42500780] (114, 456) x (483, 913) [1480317 observations, 147833 grid cells][Increment Count Cost 4.28788e+09]
+------
+Total Partitions = 1
+Number of Sections = 7
+Aspect Cost = 2088
+Count Cost = 101960
+	[0x7fae426006d0] (0, 456) x (0, 421) [1229146 observations, 192854 grid cells][Increment Count Cost 4.28763e+09]
+	[0x7fae426005c0] (0, 456) x (422, 450) [1247298 observations, 13253 grid cells][Increment Count Cost 4.28765e+09]
+	[0x7fae42600340] (0, 456) x (451, 464) [1224110 observations, 6398 grid cells][Increment Count Cost 4.28763e+09]
+	[0x7fae42600310] (0, 456) x (465, 478) [1214640 observations, 6398 grid cells][Increment Count Cost 4.28762e+09]
+	[0x7fae42600050] (0, 104) x (479, 913) [1181841 observations, 45675 grid cells][Increment Count Cost 4.28758e+09]
+	[0x7fae42600610] (105, 456) x (479, 491) [1224823 observations, 4576 grid cells][Increment Count Cost 4.28763e+09]
+	[0x7fae42600670] (105, 456) x (492, 913) [1244254 observations, 148544 grid cells][Increment Count Cost 4.28765e+09]
+------
+Total Partitions = 1
+Number of Sections = 8
+Aspect Cost = 3017
+Count Cost = 131556
+	[0x7fae42500690] (0, 90) x (0, 913) [1052490 observations, 83174 grid cells][Increment Count Cost 4.28745e+09]
+	[0x7fae425004c0] (91, 456) x (0, 438) [1037385 observations, 160674 grid cells][Increment Count Cost 4.28744e+09]
+	[0x7fae425006c0] (91, 456) x (439, 454) [1087978 observations, 5856 grid cells][Increment Count Cost 4.28749e+09]
+	[0x7fae425006f0] (91, 456) x (455, 467) [1078381 observations, 4758 grid cells][Increment Count Cost 4.28748e+09]
+	[0x7fae425008a0] (91, 100) x (468, 913) [1064175 observations, 4460 grid cells][Increment Count Cost 4.28747e+09]
+	[0x7fae42500a70] (101, 110) x (468, 913) [1080561 observations, 4460 grid cells][Increment Count Cost 4.28748e+09]
+	[0x7fae42500550] (111, 116) x (468, 913) [1063228 observations, 2676 grid cells][Increment Count Cost 4.28746e+09]
+	[0x7fae42500580] (117, 456) x (468, 913) [1101914 observations, 151640 grid cells][Increment Count Cost 4.2875e+09]

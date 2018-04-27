@@ -1,0 +1,152 @@
+--------------------------
+Root Node: 0x7fae42500280
+Total Number of Sections: 1
+Node 0x7fae42500280 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+	TERMINAL NODE
+--------------------------
+Root Node: 0x7fae42405500
+Total Number of Sections: 2
+Node 0x7fae42405500 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Children: (0x7fae42403a90, 0x7fae42404880)
+Node 0x7fae42403a90 with BBox (0, 105) x (0, 913) [4310717 observations, 96884 grid cells]
+	TERMINAL NODE
+Node 0x7fae42404880 with BBox (106, 456) x (0, 913) [4255395 observations, 320814 grid cells]
+	TERMINAL NODE
+--------------------------
+Root Node: 0x7fae42405500
+Total Number of Sections: 3
+Node 0x7fae42405500 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Children: (0x7fae42405410, 0x7fae42405440)
+Node 0x7fae42405410 with BBox (0, 456) x (0, 455) [2842195 observations, 208392 grid cells]
+	TERMINAL NODE
+Node 0x7fae42405440 with BBox (0, 456) x (456, 913) [5723917 observations, 209306 grid cells]
+Children: (0x7fae42404c10, 0x7fae42404c40)
+Node 0x7fae42404c10 with BBox (0, 456) x (456, 482) [2849339 observations, 12339 grid cells]
+	TERMINAL NODE
+Node 0x7fae42404c40 with BBox (0, 456) x (483, 913) [2874578 observations, 196967 grid cells]
+	TERMINAL NODE
+--------------------------
+Root Node: 0x7fae42405160
+Total Number of Sections: 4
+Node 0x7fae42405160 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Children: (0x7fae42404be0, 0x7fae42404c70)
+Node 0x7fae42404be0 with BBox (0, 456) x (0, 487) [6440616 observations, 223016 grid cells]
+Children: (0x7fae42405890, 0x7fae42404ca0)
+Node 0x7fae42405890 with BBox (0, 98) x (0, 487) [2168403 observations, 48312 grid cells]
+	TERMINAL NODE
+Node 0x7fae42404ca0 with BBox (99, 456) x (0, 487) [4272213 observations, 174704 grid cells]
+Children: (0x7fae42405440, 0x7fae42405470)
+Node 0x7fae42405440 with BBox (99, 108) x (0, 487) [2127297 observations, 4880 grid cells]
+	TERMINAL NODE
+Node 0x7fae42405470 with BBox (109, 456) x (0, 487) [2144916 observations, 169824 grid cells]
+	TERMINAL NODE
+Node 0x7fae42404c70 with BBox (0, 456) x (488, 913) [2125496 observations, 194682 grid cells]
+	TERMINAL NODE
+--------------------------
+Root Node: 0x7fae42600050
+Total Number of Sections: 5
+Node 0x7fae42600050 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Children: (0x7fae426000b0, 0x7fae42600020)
+Node 0x7fae426000b0 with BBox (0, 456) x (0, 440) [1717148 observations, 201537 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600020 with BBox (0, 456) x (441, 913) [6848964 observations, 216161 grid cells]
+Children: (0x7fae426003f0, 0x7fae42600420)
+Node 0x7fae426003f0 with BBox (0, 456) x (441, 489) [5070712 observations, 22393 grid cells]
+Children: (0x7fae42600320, 0x7fae42600350)
+Node 0x7fae42600320 with BBox (0, 106) x (441, 489) [3380569 observations, 5243 grid cells]
+Children: (0x7fae426001d0, 0x7fae42600200)
+Node 0x7fae426001d0 with BBox (0, 106) x (441, 466) [1669170 observations, 2782 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600200 with BBox (0, 106) x (467, 489) [1711399 observations, 2461 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600350 with BBox (107, 456) x (441, 489) [1690143 observations, 17150 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600420 with BBox (0, 456) x (490, 913) [1778252 observations, 193768 grid cells]
+	TERMINAL NODE
+--------------------------
+Root Node: 0x7fae42500280
+Total Number of Sections: 6
+Node 0x7fae42500280 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Children: (0x7fae425004e0, 0x7fae42500360)
+Node 0x7fae425004e0 with BBox (0, 456) x (0, 471) [4231649 observations, 215704 grid cells]
+Children: (0x7fae425005d0, 0x7fae425003d0)
+Node 0x7fae425005d0 with BBox (0, 456) x (0, 455) [2842195 observations, 208392 grid cells]
+Children: (0x7fae42500400, 0x7fae42500690)
+Node 0x7fae42500400 with BBox (0, 456) x (0, 433) [1420924 observations, 198338 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500690 with BBox (0, 456) x (434, 455) [1421271 observations, 10054 grid cells]
+	TERMINAL NODE
+Node 0x7fae425003d0 with BBox (0, 456) x (456, 471) [1389454 observations, 7312 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500360 with BBox (0, 456) x (472, 913) [4334463 observations, 201994 grid cells]
+Children: (0x7fae425006f0, 0x7fae42500720)
+Node 0x7fae425006f0 with BBox (0, 456) x (472, 482) [1459885 observations, 5027 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500720 with BBox (0, 456) x (483, 913) [2874578 observations, 196967 grid cells]
+Children: (0x7fae42500750, 0x7fae42500780)
+Node 0x7fae42500750 with BBox (0, 113) x (483, 913) [1394261 observations, 49134 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500780 with BBox (114, 456) x (483, 913) [1480317 observations, 147833 grid cells]
+	TERMINAL NODE
+--------------------------
+Root Node: 0x7fae426000a0
+Total Number of Sections: 7
+Node 0x7fae426000a0 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Children: (0x7fae42600550, 0x7fae426003f0)
+Node 0x7fae42600550 with BBox (0, 456) x (0, 478) [4915194 observations, 218903 grid cells]
+Children: (0x7fae426006d0, 0x7fae426006a0)
+Node 0x7fae426006d0 with BBox (0, 456) x (0, 421) [1229146 observations, 192854 grid cells]
+	TERMINAL NODE
+Node 0x7fae426006a0 with BBox (0, 456) x (422, 478) [3686048 observations, 26049 grid cells]
+Children: (0x7fae426005c0, 0x7fae42600110)
+Node 0x7fae426005c0 with BBox (0, 456) x (422, 450) [1247298 observations, 13253 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600110 with BBox (0, 456) x (451, 478) [2438750 observations, 12796 grid cells]
+Children: (0x7fae42600340, 0x7fae42600310)
+Node 0x7fae42600340 with BBox (0, 456) x (451, 464) [1224110 observations, 6398 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600310 with BBox (0, 456) x (465, 478) [1214640 observations, 6398 grid cells]
+	TERMINAL NODE
+Node 0x7fae426003f0 with BBox (0, 456) x (479, 913) [3650918 observations, 198795 grid cells]
+Children: (0x7fae42600050, 0x7fae42600200)
+Node 0x7fae42600050 with BBox (0, 104) x (479, 913) [1181841 observations, 45675 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600200 with BBox (105, 456) x (479, 913) [2469077 observations, 153120 grid cells]
+Children: (0x7fae42600610, 0x7fae42600670)
+Node 0x7fae42600610 with BBox (105, 456) x (479, 491) [1224823 observations, 4576 grid cells]
+	TERMINAL NODE
+Node 0x7fae42600670 with BBox (105, 456) x (492, 913) [1244254 observations, 148544 grid cells]
+	TERMINAL NODE
+--------------------------
+Root Node: 0x7fae42500280
+Total Number of Sections: 8
+Node 0x7fae42500280 with BBox (0, 456) x (0, 913) [8566112 observations, 417698 grid cells]
+Children: (0x7fae42500690, 0x7fae42500930)
+Node 0x7fae42500690 with BBox (0, 90) x (0, 913) [1052490 observations, 83174 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500930 with BBox (91, 456) x (0, 913) [7513622 observations, 334524 grid cells]
+Children: (0x7fae42500870, 0x7fae42500490)
+Node 0x7fae42500870 with BBox (91, 456) x (0, 467) [3203744 observations, 171288 grid cells]
+Children: (0x7fae425004c0, 0x7fae425004f0)
+Node 0x7fae425004c0 with BBox (91, 456) x (0, 438) [1037385 observations, 160674 grid cells]
+	TERMINAL NODE
+Node 0x7fae425004f0 with BBox (91, 456) x (439, 467) [2166359 observations, 10614 grid cells]
+Children: (0x7fae425006c0, 0x7fae425006f0)
+Node 0x7fae425006c0 with BBox (91, 456) x (439, 454) [1087978 observations, 5856 grid cells]
+	TERMINAL NODE
+Node 0x7fae425006f0 with BBox (91, 456) x (455, 467) [1078381 observations, 4758 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500490 with BBox (91, 456) x (468, 913) [4309878 observations, 163236 grid cells]
+Children: (0x7fae425008a0, 0x7fae42500a20)
+Node 0x7fae425008a0 with BBox (91, 100) x (468, 913) [1064175 observations, 4460 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500a20 with BBox (101, 456) x (468, 913) [3245703 observations, 158776 grid cells]
+Children: (0x7fae42500a70, 0x7fae42500520)
+Node 0x7fae42500a70 with BBox (101, 110) x (468, 913) [1080561 observations, 4460 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500520 with BBox (111, 456) x (468, 913) [2165142 observations, 154316 grid cells]
+Children: (0x7fae42500550, 0x7fae42500580)
+Node 0x7fae42500550 with BBox (111, 116) x (468, 913) [1063228 observations, 2676 grid cells]
+	TERMINAL NODE
+Node 0x7fae42500580 with BBox (117, 456) x (468, 913) [1101914 observations, 151640 grid cells]
+	TERMINAL NODE
