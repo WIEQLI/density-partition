@@ -33,12 +33,21 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
+#include <exception>
+#include <chrono>
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <fstream>
 
 #include "stdtypes.h"
 #include "DensityPartition.h"
+
+/// \class PartitionTimeOut
+/// \brief Exception class to throw when time to partition runs out
+class PartitionTimeOut : public std::runtime_error {
+public:
+    PartitionTimeOut(void) : std::runtime_error("Algorithm timed out during partition") {}
+};
 
 /// \struct CountData
 /// \brief Encapsulation of the cumulative counts along rows and down columns
@@ -310,7 +319,7 @@ Partition::Partition(const DensityTree * const leaf, IntBBox const& bbox, s32 co
 /// \return N/A
 
 DensityTree::DensityTree(CountData const* data, u32 const available_cost, u32 const n_sections,
-						 s32 const nominal_obs, IntBBox const& bbox)
+                         s32 const nominal_obs, IntBBox const& bbox, TimePoint const& deadline)
 : m_bbox(bbox)
 {
 	if (1 == n_sections) {
@@ -321,6 +330,13 @@ DensityTree::DensityTree(CountData const* data, u32 const available_cost, u32 co
 		m_stbdPartition = NULL;
 		return;
 	}
+    
+    // Check for timeout
+    if (deadline != TimePoint()) {
+        TimePoint now = Clock::now();
+        if (now > deadline)
+            throw PartitionTimeOut();
+    }
 	
 	// Since we're going to partition the space, there's no point in computing the nominal cost for
 	// this chunk, so we set the lowest cost indicator so that we can estimate it in the loops below
@@ -343,12 +359,12 @@ DensityTree::DensityTree(CountData const* data, u32 const available_cost, u32 co
 	u32 n = 0;
 	u32 target_cost = available_cost;
 	do {
-		VerticalSplit(data, section, n_sections, nominal_obs, col_partition, target_cost, bbox);
+		VerticalSplit(data, section, n_sections, nominal_obs, col_partition, target_cost, bbox, deadline);
 		// If the refinements have resulted in a cost lower than the available cost from above, we do any
 		// further refinements with the tighter bound
 		if (m_lowestCost < target_cost) target_cost = m_lowestCost;
 
-		HorizontalSplit(data, section, n_sections, nominal_obs, row_partition, target_cost, bbox);
+		HorizontalSplit(data, section, n_sections, nominal_obs, row_partition, target_cost, bbox, deadline);
 		if (m_lowestCost < target_cost) target_cost = m_lowestCost;
 		section += direction*(n+1);
 		direction = -direction;
@@ -372,7 +388,8 @@ DensityTree::DensityTree(CountData const* data, u32 const available_cost, u32 co
 /// \return N/A
 
 void DensityTree::VerticalSplit(CountData const* data, u32 const split_point, u32 const n_sections, u32 const nominal_obs,
-								std::vector<u32> const& col_partition, u32 const available_cost, IntBBox const& bbox)
+								std::vector<u32> const& col_partition, u32 const available_cost, IntBBox const& bbox,
+                                TimePoint const& deadline)
 {
 	IntBBox port_box = bbox, stbd_box = bbox;
 	port_box.right = col_partition[split_point];
@@ -385,10 +402,10 @@ void DensityTree::VerticalSplit(CountData const* data, u32 const split_point, u3
 		// Since the split-point is to the port-side of the range, we develop the port tree first, and then (if required)
 		// the starboard tree.  Since the tree should be shallower on the port-side, we should give ourselves a better chance
 		// of not having to develop the starboard-side, which will take longer.
-		port = new DensityTree(data, available_cost, split_point+1, nominal_obs, port_box);
+		port = new DensityTree(data, available_cost, split_point+1, nominal_obs, port_box, deadline);
 		if (port->MinCost() < available_cost) {
 			// Looks like we need to evaluate the starboard tree and check whether there is a configuration that would work
-			stbd = new DensityTree(data, available_cost - port->MinCost(), n_sections - (split_point + 1), nominal_obs, stbd_box);
+			stbd = new DensityTree(data, available_cost - port->MinCost(), n_sections - (split_point + 1), nominal_obs, stbd_box, deadline);
 		} else {
 			// No need to evaluate the starboard tree (since the port tree already exceeds the available cost), and therefore
 			// we don't need the port tree either (since it exceeds the available cost).  We can clear up, therefore.
@@ -399,9 +416,9 @@ void DensityTree::VerticalSplit(CountData const* data, u32 const split_point, u3
 		// Since the split-point is putting less area on the starboard-side of the split, we develop the starboard side first in
 		// the hope that it'll be shallower (and hence faster to evaluate) before seeing whether we need to evaluate the port-side
 		// tree (which only happens if there if sufficient cost available after we remove the cost of what we've already done).
-		stbd = new DensityTree(data, available_cost, n_sections - (split_point + 1), nominal_obs, stbd_box);
+		stbd = new DensityTree(data, available_cost, n_sections - (split_point + 1), nominal_obs, stbd_box, deadline);
 		if (stbd->MinCost() < available_cost) {
-			port = new DensityTree(data, available_cost - stbd->MinCost(), split_point + 1, nominal_obs, port_box);
+			port = new DensityTree(data, available_cost - stbd->MinCost(), split_point + 1, nominal_obs, port_box, deadline);
 		} else {
 			delete stbd;
 			stbd = NULL;
@@ -442,7 +459,8 @@ void DensityTree::VerticalSplit(CountData const* data, u32 const split_point, u3
 /// \return N/A
 
 void DensityTree::HorizontalSplit(CountData const* data, u32 const split_point, u32 const n_sections, u32 const nominal_obs,
-								  std::vector<u32> const& row_partition, u32 const available_cost, IntBBox const& bbox)
+								  std::vector<u32> const& row_partition, u32 const available_cost, IntBBox const& bbox,
+                                  TimePoint const& deadline)
 {
 	IntBBox port_box = bbox, stbd_box = bbox;
 	port_box.top = row_partition[split_point];
@@ -455,11 +473,11 @@ void DensityTree::HorizontalSplit(CountData const* data, u32 const split_point, 
 		// Since the split-point is to the port-side of the range, we develop the port tree first, and then (if required)
 		// the starboard tree.  Since the tree should be shallower on the port-side (and therefore faster to evaluate), we should
 		// give outselves a better chance of not having to develop the starboard-side, which will take longer.
-		port = new DensityTree(data, available_cost, split_point+1, nominal_obs, port_box);
+		port = new DensityTree(data, available_cost, split_point+1, nominal_obs, port_box, deadline);
 		if (port->MinCost() < available_cost) {
 			// Looks like we need to evaluate the starboard tree, since there is a partition of the port tree lower
 			// than the available cost.
-			stbd = new DensityTree(data, available_cost - port->MinCost(), n_sections - (split_point + 1), nominal_obs, stbd_box);
+			stbd = new DensityTree(data, available_cost - port->MinCost(), n_sections - (split_point + 1), nominal_obs, stbd_box, deadline);
 		} else {
 			// No need to evaluate the stbd tree (since the port tree already exceed the available cost), and therefore
 			// we don't need the port tree either (since it exceeds the available cost).  We can clear up, therefore.
@@ -470,9 +488,9 @@ void DensityTree::HorizontalSplit(CountData const* data, u32 const split_point, 
 		// Since the split-point is putting less area on the starboard-side of the split, we develop the starboard side first in
 		// the hope that it'll be shallower (and hence faster to evaluate) before seeing whether we need to evaluate the port-side
 		// tree (which only happens if there is sufficient cost available after we remove the cost of what we're already done).
-		stbd = new DensityTree(data, available_cost, n_sections - (split_point + 1), nominal_obs, stbd_box);
+		stbd = new DensityTree(data, available_cost, n_sections - (split_point + 1), nominal_obs, stbd_box, deadline);
 		if (stbd->MinCost() < available_cost) {
-			port = new DensityTree(data, available_cost - stbd->MinCost(), split_point + 1, nominal_obs, port_box);
+			port = new DensityTree(data, available_cost - stbd->MinCost(), split_point + 1, nominal_obs, port_box, deadline);
 		} else {
 			delete stbd;
 			stbd = NULL;
@@ -749,14 +767,15 @@ DensityPartition::~DensityPartition(void)
 /// to the entire size of the input array.
 ///
 /// \param n_sections	Number of sections into which to break the counts array
-/// \return N/A
+/// \param timeout      Maximum time to allow (s) for partition before stopping
+/// \return true if the partition completed, otherwise false
 
-void DensityPartition::Repartition(u32 const n_sections)
+bool DensityPartition::Repartition(u32 const n_sections, f64 const timeout)
 {
 	IntBBox bbox;
 	bbox.left = 0; bbox.bottom = 0;
 	bbox.right = m_nCols - 1; bbox.top = m_nRows - 1;
-	Repartition(n_sections, bbox);
+	return Repartition(n_sections, bbox, timeout);
 }
 
 /// Construct the optimal partition of a specific sub-section of the counts array into the given number of sections.
@@ -764,14 +783,27 @@ void DensityPartition::Repartition(u32 const n_sections)
 ///
 /// \param n_sections	Number of sections into which the bounding box should be split
 /// \param bbox			Region of the original array to split up
-/// \return N/A
+/// \param timeout      Maximum time to allow (s) for partition before stopping
+/// \return true if the partition completed, otherwise false
 
-void DensityPartition::Repartition(u32 const n_sections, IntBBox const& bbox)
+bool DensityPartition::Repartition(u32 const n_sections, IntBBox const& bbox, f64 const timeout)
 {
 	m_nSections = n_sections;
 	if (NULL != m_root) delete m_root;
 	s32 nominal_obs = m_cumulatives->m_nObservations / n_sections;
-	m_root = new DensityTree(m_cumulatives, std::numeric_limits<u32>::max(), n_sections, nominal_obs, bbox);
+    std::chrono::high_resolution_clock::time_point deadline;
+    if (timeout > 0.0) {
+        std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
+        deadline = now + std::chrono::milliseconds(static_cast<u32>(1000.0*timeout));
+    }
+    try {
+        m_root = new DensityTree(m_cumulatives, std::numeric_limits<u32>::max(), n_sections, nominal_obs, bbox, deadline);
+    }
+    catch (PartitionTimeOut& e) {
+        m_root = nullptr;
+        return false;
+    }
+    return true;
 }
 
 /// Find the optimal partition from all those stored in the tree of possibilities.  Because the tree is critically

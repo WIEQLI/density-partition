@@ -51,6 +51,11 @@ struct Configuration {
     f64                 mean_compute_time;  ///< Time to compute the partition (s)
     f64                 stddev_compute_time;///< Standard deviation of the time to compute the partition (s)
 	u32					partition_cost;		///< Cost of the 'best' partition
+    
+    Configuration(void)
+    : partition(nullptr), mean_compute_time(-1.0),
+      stddev_compute_time(-1.0), partition_cost(0) {}
+    bool Valid(void) const { return partition != nullptr; }
 };
 
 void Syntax(po::options_description const& cmdopt)
@@ -75,6 +80,10 @@ void DumpConfigStats(std::string const& filename, std::vector<Configuration>& co
 		<< " Biggest Thread Observation Count, Effective Speedup, Nominal Efficiency" << std::endl;
 
 	for (std::vector<Configuration>::const_iterator conf = configs.begin(); conf != configs.end(); ++conf) {
+        if (!conf->Valid()) {
+            std::cerr << "warning: configuration not valid; ignoring." << std::endl;
+            continue;
+        }
 		u32 n_proc = static_cast<u32>(conf->partition->size());
 		u32 max_thread_count = 0;	// Maximum number of soundings assigned to any one thread
 		f64 mean_count, stddev_count, max_speedup;
@@ -111,7 +120,12 @@ void DumpConfigs(std::string const& filename, std::vector<Configuration>& config
 {
 	std::ofstream	f(filename.c_str());
 	
-	for (std::vector<Configuration>::const_iterator conf = configs.begin(); conf != configs.end(); ++conf) {
+    for (std::vector<Configuration>::const_iterator conf = configs.begin(); conf != configs.end(); ++conf) {
+        if (!conf->Valid()) {
+            std::cerr << "warning: configuration not valid; ignoring." << std::endl;
+            continue;
+        }
+        
 		u32 n_proc = static_cast<u32>(conf->partition->size());
 		u32 max_section_observations = 0;
 		
@@ -132,6 +146,10 @@ void DumpMachineReadable(std::string const& filename, std::vector<Configuration>
 	std::ofstream f(filename.c_str());
 	
 	for (std::vector<Configuration>::const_iterator conf = configs.begin(); conf != configs.end(); ++conf) {
+        if (!conf->Valid()) {
+            std::cerr << "warning: configuration not valid; ignoring." << std::endl;
+            continue;
+        }
 		u32 n_proc = static_cast<u32>( conf->partition->size() );
 		
 		f << n_proc << std::endl;
@@ -175,6 +193,7 @@ int main(int argc, char **argv)
 		("max-part,e",		po::value<int>(),			"Maximum number of partitions to consider")
         ("binary",                                      "Read binary counts from input, rather than text")
         ("repeat,r",        po::value<int>(),           "Repeat computation and estimate compute time statistics")
+        ("timeout",         po::value<double>(),        "Total time to allow for partition to complete before giving up")
 		;
 	po::positional_options_description cmdline;
 	cmdline.add("input", 1).add("output", 1).add("stats", 1).add("min-part", 1).add("max-part", 1);
@@ -261,6 +280,16 @@ int main(int argc, char **argv)
             return 1;
         }
     }
+    
+    // Check for a timeout for partitioning, if available
+    f64 timeout = -1.0;
+    if (optvals.count("timeout") > 0) {
+        timeout = optvals["timeout"].as<f64>();
+        if (timeout < 0.0) {
+            std::cout << "error: timeout value must be a positive number of seconds." << std::endl;
+            return 1;
+        }
+    }
 	
 	for (s32 n_proc = min_processors; n_proc <= max_processors; ++n_proc) {
 		std::cout << "info: Computing configuration for " << n_proc << " processors with " << n_repeats << " repeats." << std::endl;
@@ -268,26 +297,31 @@ int main(int argc, char **argv)
 		Configuration config;
 		
         f64 sum_compute_times = 0.0, sum_sq_compute_times = 0.0;
+        u32 n_summed = 0;
         for (u32 r = 0; r < n_repeats; ++r) {
             boost::posix_time::ptime start(boost::posix_time::microsec_clock::universal_time());
-            partition.Repartition(n_proc);
-            config.partition = partition.BestPartition(config.partition_cost);
+            if (!partition.Repartition(n_proc, timeout)) {
+                std::cout << "error: re-partitioning timed out for repeat " << r << " of " << n_repeats << std::endl;
+                continue;
+            }
+            if (config.partition == nullptr)
+                config.partition = partition.BestPartition(config.partition_cost);
             boost::posix_time::ptime end(boost::posix_time::microsec_clock::universal_time());
             
             boost::posix_time::time_duration delay = end - start;
             sum_compute_times += delay.total_microseconds()/1.0e6;
             sum_sq_compute_times += (delay.total_microseconds()/1.0e6)*(delay.total_microseconds()/1.0e6);
             
-            if (r != n_repeats-1)
-                delete config.partition;
+            ++n_summed;
         }
-        
-        config.mean_compute_time = sum_compute_times/n_repeats;
-        if (n_repeats > 1) {
-            config.stddev_compute_time = sum_sq_compute_times/(n_repeats-1) -
-                                    (static_cast<f64>(n_repeats)/(n_repeats-1))*config.mean_compute_time*config.mean_compute_time;
-        } else {
-            config.stddev_compute_time = -1.0;
+        if (n_summed > 0) {
+            config.mean_compute_time = sum_compute_times/n_summed;
+            if (n_summed > 1) {
+                config.stddev_compute_time = sum_sq_compute_times/(n_summed-1) -
+                                        (static_cast<f64>(n_summed)/(n_summed-1))*config.mean_compute_time*config.mean_compute_time;
+            } else {
+                config.stddev_compute_time = -1.0;
+            }
         }
         
 		config_set.push_back(config);

@@ -34,10 +34,14 @@
 
 #include <list>
 #include <vector>
+#include <chrono>
 
 #include "stdtypes.h"
 
 struct CountData;
+
+using Clock = std::chrono::high_resolution_clock;
+using TimePoint = std::chrono::time_point<Clock>;
 
 /// \struct IntBBox
 /// \brief A simple integer bounding box with natural number limits
@@ -130,7 +134,8 @@ struct CountData;
 class DensityTree {
 public:
 	/// \brief Recursive constructor for the optimal partition of the count array
-	DensityTree(CountData const* data, u32 const available_cost, u32 const n_sections, s32 const nominal_obs, IntBBox const& bbox);
+	DensityTree(CountData const* data, u32 const available_cost, u32 const n_sections,
+                s32 const nominal_obs, IntBBox const& bbox, TimePoint const& deadline);
 	/// \brief Default destructor, recursively removing all of the partitions for the tree
 	~DensityTree(void);
 	
@@ -152,10 +157,10 @@ public:
 private:
 	/// \brief Construct all possible vertical splits of the current node, updating the node with the best one known
 	void VerticalSplit(CountData const* data, u32 const split_point, u32 const n_sections, u32 const nominal_obs,
-					   std::vector<u32> const& col_partition, u32 const available_cost, IntBBox const& bbox);
+					   std::vector<u32> const& col_partition, u32 const available_cost, IntBBox const& bbox, TimePoint const& deadline);
 	/// \brief Construct all possible horizontal splits of the current node, updating the node with the best one known
 	void HorizontalSplit(CountData const* data, u32 const split_point, u32 const n_sections, u32 const nominal_obs,
-						 std::vector<u32> const& row_partition, u32 const available_cost, IntBBox const& bbox);
+						 std::vector<u32> const& row_partition, u32 const available_cost, IntBBox const& bbox, TimePoint const& deadline);
 	/// \brief Construct the optimal partition of the bounding box specified into equi-count sections across the width
 	void RowPartition(CountData const*const counts, IntBBox const& bbox, u32 const n_sections, std::vector<u32>& partition);
 	/// \brief Construct the optimal partition of the bounding box specified into equi-count sections up the height
@@ -187,9 +192,9 @@ public:
 	~DensityPartition(void);
 	
 	/// \brief Compute the optimal partition of a section of the counts array into a given number of sections
-	void Repartition(u32 const n_sections, IntBBox const& bbox);
+	bool Repartition(u32 const n_sections, IntBBox const& bbox, f64 const timeout = -1.0);
 	/// \brief Compute the optimal partitions of the whole counts array into a given number of sections
-	void Repartition(u32 const n_sections);
+	bool Repartition(u32 const n_sections, f64 const timeout = -1.0);
 	/// \brief Extract the best known partition of the current tree
 	std::list<IntBBox> *BestPartition(u32& cost) const;
 	
